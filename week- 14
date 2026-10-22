@@ -1,0 +1,116 @@
+select the appropriate installer for your operating system.
+Step‑3: Windows:
+
+Download the Windows installer (e.g., nmap-7.94-setup.exe).
+Run the installer and follow the wizard.
+Keep all components checked (Nmap, Zenmap, Nping, etc.).
+Complete the installation. Step‑4: Linux (Ubuntu/Debian):
+bash
+v1.0
+sudo apt update
+sudo apt install nmap zenmap
+Step‑5: macOS:
+
+Download the macOS installer .dmg file.
+Open the file and drag Nmap to the Applications folder.
+Part B: Using Zenmap (GUI)
+Step‑1: Launch Zenmap from the Start Menu (Windows), Applications menu (Linux), or Applications folder (macOS).
+Step‑2: In the Target field, enter the target to scan (e.g., 192.168.1.1, example.com, 192.168.1.0/24).
+Step‑3: In the Profile dropdown, select a scan profile:
+
+Profile	Description
+Intense scan	Comprehensive scan: OS detection, version detection, script scanning, traceroute (aggressive timing)
+Ping scan	Only detects live hosts (no port scanning)
+Quick scan	Faster scan with aggressive timing and common ports
+Regular scan	Standard Nmap scan (default options)
+Step‑4: Click the Scan button to start scanning.
+Step‑5: Observe the progress in the Nmap Output tab.
+Step‑6: Once the scan completes, explore the results in different tabs:
+
+Ports/Hosts – open ports and services
+Topology – traceroute to the target
+Host Details – summary of the target
+Scans – command history
+Part C: Using Nmap from Command Line
+Step‑1: Open Command Prompt (Windows) or Terminal (Linux/macOS).
+Step‑2: Basic scan syntax:
+
+bash
+v1.0
+nmap <target>
+Step‑3: Common scan commands:
+
+Command	Description
+nmap -sn 192.168.1.0/24	Ping scan (discover live hosts)
+nmap -sS 192.168.1.10	TCP SYN stealth scan
+nmap -sT 192.168.1.10	TCP Connect scan
+nmap -sU 192.168.1.10	UDP scan
+nmap -sV 192.168.1.10	Version detection
+nmap -O 192.168.1.10	OS detection
+nmap -A 192.168.1.10	Aggressive scan (OS, version, scripts, traceroute)
+nmap -p 22,80,443 192.168.1.10	Scan specific ports
+nmap -p- 192.168.1.10	Scan all ports (1-65535)
+nmap --script=vuln 192.168.1.10	Vulnerability scan using NSE scripts
+Step‑4: View help:
+
+bash
+v1.0
+nmap -h
+Part D: Interpreting Results
+Step‑1: In the Nmap Output tab, review the scan summary:
+
+Number of hosts up/down
+Open ports and services
+OS detection results
+Step‑2: In the Ports/Hosts tab:
+
+List all open ports
+View the service running on each port
+Step‑3: In the Topology tab:
+
+View the traceroute path to the target
+See the number of hops
+Step‑4: In the Host Details tab:
+
+View a summary of the target:
+IP address
+Hostname
+Operating system
+Open ports count
+Part E: Saving Scan Results
+Step‑1: In Zenmap, go to File → Save Scan to save results in .xml or .txt format.
+Step‑2: In the command line, use output options:
+
+bash
+v1.0
+nmap -oN output.txt <target>    # Normal output
+nmap -oX output.xml <target>    # XML output
+nmap -oG output.gnmap <target>  # Grepable output
+Examples
+Example 1: Ping Scan
+Command:
+
+bash
+v1.0
+nmap -sn 192.168.1.0/24
+Output:
+
+Starting Nmap 7.94 ( https://nmap.org ) at 2026-01-15 10:30 IST Nmap scan report for 192.168.1.1 Host is up (0.0010s latency). Nmap scan report for 192.168.1.10 Host is up (0.0020s latency). Nmap scan report for 192.168.1.20 Host is up (0.0015s latency). ... Nmap done: 256 IP addresses (4 hosts up) scanned in 2.34 seconds
+Example 2: Aggressive Scan (Command Line)
+Command:
+
+bash
+v1.0
+nmap -A 192.168.1.10
+Output:
+
+Starting Nmap 7.94 ( https://nmap.org ) at 2026-01-15 10:35 IST Nmap scan report for 192.168.1.10 Host is up (0.0010s latency). Not shown: 993 closed tcp ports (reset) PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.2p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0) 80/tcp open http Apache httpd 2.4.41 ((Ubuntu)) 443/tcp open https Apache httpd 2.4.41 ((Ubuntu)) 3306/tcp open mysql MySQL 8.0.28 Device type: general purpose Running: Linux 5.x OS CPE: cpe:/o:linux:linux_kernel:5 OS details: Linux 5.0 - 5.15 Network Distance: 1 hop
+Example 3: Intense Scan (Zenmap)
+Target: 192.168.1.1
+Profile: Intense scan
+Result: Open ports: 22 (SSH), 80 (HTTP), 443 (HTTPS). OS: Linux 4.4.
+
+Constraints
+Nmap requires administrative/root privileges for certain scan types (e.g., SYN scan, OS detection).
+Scanning networks without permission may be illegal – only scan networks you own or have explicit permission to scan.
+Some firewalls may block Nmap scans, resulting in inaccurate results.
